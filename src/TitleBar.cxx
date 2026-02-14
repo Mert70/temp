@@ -8,21 +8,13 @@ namespace basic
         destroy();
         m_window = _window;
 
-        testFrame = new uint8_t[1280 * 720 * 4 + 5];
 
-        if (!m_video.create(_window, "Camera"))
+        if (!m_video.create(_window, "Camera", 800, 600))
         {
             std::cerr << "Couldn't created the video page!\n";
             exit(EXIT_FAILURE);
         }
         m_video.setPosition(50, 50);
-        for (int i = 0; i < 1280 * 720 * 4; i += 4)
-        {
-            testFrame[i] = rand() % 256;
-            testFrame[i + 1] = rand() % 256;
-            testFrame[i + 2] = rand() % 256;
-            testFrame[i + 3] = 255;
-        }
         m_video.updateFrame(testFrame, 1280 * 720, 1280);
 
         if (!m_map.create(_window, "Map", 600, 600))
@@ -30,16 +22,6 @@ namespace basic
             std::cerr << "Couldn't created the Map page!\n";
             exit(EXIT_FAILURE);
         }
-        for (int i = 0; i < 200 * 150 * 4; i += 4)
-        {
-            testFrame[i] = rand() % 256;
-            testFrame[i + 1] = rand() % 256;
-            testFrame[i + 2] = rand() % 256;
-            testFrame[i + 3] = 255;
-        }
-
-        m_map.updateFrame(testFrame, 200 * 150 * 4, 200);
-
         m_created = true;
         return true;
     }
@@ -55,15 +37,6 @@ namespace basic
     {
         if (!m_created)
             return;
-        for (int i = 0; i < 1280 * 720 * 4; i += 4)
-        {
-            testFrame[i] = rand() % 256;
-            testFrame[i + 1] = rand() % 256;
-            testFrame[i + 2] = rand() % 256;
-            testFrame[i + 3] = 255;
-        }
-        m_video.updateFrame(testFrame, 1280 * 720, 1280);
-
         int ping = last_response_time.load();
         float t = static_cast<float>(ping) / static_cast<float>(MaxPing.load());
         if (t < 0.0f)

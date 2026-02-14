@@ -84,6 +84,8 @@ target_include_directories(${APP_NAME} PRIVATE
 # Link kütüphaneleri
 target_link_libraries(${APP_NAME} PRIVATE SDL3::SDL3 sodium )
 
+target_compile_definitions(${APP_NAME} PUBLIC USE_OPENGL)
+
 # Test kaynakları
 file(GLOB_RECURSE TEST_SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/tests/*.cpp"
